@@ -1,4 +1,5 @@
 import { useState } from "react"
+import supabase from "../config/supabaseClient";
 
 const Create = () => {
   const [title, setTitle] = useState(' ');
@@ -11,10 +12,23 @@ const Create = () => {
 
     if(!title || !method || !rating){
       setFormError("Please fill in all the fields correctly");
-      return;
+      return
     }
 
-    console.log(title,method,rating);
+    const {data, error} = await supabase
+      .from('Smoothies')
+      .insert([{title, method, rating}])
+      .select()
+
+      if(error){
+        console.log(error)
+        setFormError("Please fill in all the fields correctly");
+      }
+      if(data){
+        console.log(data)
+        setFormError(null)
+      }
+
   }
 
   return (
