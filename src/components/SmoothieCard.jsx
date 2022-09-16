@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import Delete from "./Delete"
 
 const SmoothieCard = ({ smoothie }) => {
     return (
@@ -10,6 +11,7 @@ const SmoothieCard = ({ smoothie }) => {
           <Link to={'/' + smoothie.id}>
             <i className="material-icons">edit</i>
           </Link>
+          <Delete key={smoothie.id} smoothie={smoothie} />
         </div>
       </div>
     )
