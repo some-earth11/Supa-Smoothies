@@ -7,6 +7,12 @@ const Home = () => {
   const [fetchError, setFetchError] = useState(null)
   const [smoothies, setSmoothies] = useState(null)
 
+  const handleDelete = (id) => {
+    setSmoothies(prevSmoothies => {
+      return prevSmoothies.filter(sm => sm.id !== id)
+    })
+  }
+
   useEffect(() => {
     const fetchSmoothies = async () => {
       const { data, error } = await supabase
@@ -35,7 +41,7 @@ const Home = () => {
           {/* order-by buttons */}
           <div className="smoothie-grid">
             {smoothies.map(smoothie => (
-              <SmoothieCard key={smoothie.id} smoothie={smoothie} />
+              <SmoothieCard key={smoothie.id} smoothie={smoothie} onDelete={handleDelete} />
             ))}
           </div>
         </div>
